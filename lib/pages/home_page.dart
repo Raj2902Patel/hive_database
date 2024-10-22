@@ -100,195 +100,198 @@ class _HomePageState extends State<HomePage> {
         duration: const Duration(seconds: 2),
         reverseDuration: const Duration(seconds: 1),
       ),
-      builder: (_) => Container(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(ctx).viewInsets.bottom,
-          top: 15,
-          left: 15,
-          right: 15,
-        ),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                itemKey != null ? "Update Note" : "Add Note",
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: titleController,
-                decoration: InputDecoration(
-                  labelText: "Title",
-                  labelStyle: const TextStyle(
+      builder: (_) => PopScope(
+        canPop: false,
+        child: Container(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(ctx).viewInsets.bottom,
+            top: 15,
+            left: 15,
+            right: 15,
+          ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  itemKey != null ? "Update Note" : "Add Note",
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20.0,
-                  ),
-                  hintText: "Enter Title",
-                  hintStyle: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 16.0,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    borderSide: const BorderSide(color: Colors.blueGrey),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    borderSide: const BorderSide(color: Colors.black),
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please Enter A Title!";
-                  } else if (value.length <= 3) {
-                    return "Title Must Be At Least 4 Characters Long.";
-                  } else if (value.length > 15) {
-                    return "Title Must Be 15 Characters or Less";
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: descController,
-                maxLines: 4,
-                decoration: InputDecoration(
-                  labelText: "Description",
-                  labelStyle: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.0,
-                  ),
-                  hintText: "Enter Description",
-                  hintStyle: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 16.0,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    borderSide: const BorderSide(color: Colors.blueGrey),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    borderSide: const BorderSide(color: Colors.black),
-                  ),
+                const SizedBox(
+                  height: 25,
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please Enter A Description!";
-                  } else if (value.length <= 7) {
-                    return "Description Must Be At Least 8 Characters Long.";
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        splashFactory: InkRipple.splashFactory,
-                        overlayColor: Colors.blue,
-                        side: const BorderSide(
-                          color: Colors.blue,
-                          width: 1.5,
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  controller: titleController,
+                  decoration: InputDecoration(
+                    labelText: "Title",
+                    labelStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                    ),
+                    hintText: "Enter Title",
+                    hintStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16.0,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      borderSide: const BorderSide(color: Colors.blueGrey),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      borderSide: const BorderSide(color: Colors.black),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please Enter A Title!";
+                    } else if (value.length <= 3) {
+                      return "Title Must Be At Least 4 Characters Long.";
+                    } else if (value.length > 15) {
+                      return "Title Must Be 15 Characters or Less";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  controller: descController,
+                  maxLines: 4,
+                  decoration: InputDecoration(
+                    labelText: "Description",
+                    labelStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                    ),
+                    hintText: "Enter Description",
+                    hintStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16.0,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      borderSide: const BorderSide(color: Colors.blueGrey),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      borderSide: const BorderSide(color: Colors.black),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please Enter A Description!";
+                    } else if (value.length <= 7) {
+                      return "Description Must Be At Least 8 Characters Long.";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          splashFactory: InkRipple.splashFactory,
+                          overlayColor: Colors.blue,
+                          side: const BorderSide(
+                            color: Colors.blue,
+                            width: 1.5,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            if (itemKey == null) {
+                              _createItem({
+                                "title": titleController.text,
+                                "description": descController.text,
+                              });
+                            }
+
+                            if (itemKey != null) {
+                              _updateItem(itemKey, {
+                                'title': titleController.text.trim(),
+                                "description": descController.text.trim(),
+                              });
+                            }
+
+                            Navigator.of(context).pop();
+
+                            await Future.delayed(const Duration(seconds: 1));
+
+                            //clear the text fields
+                            titleController.clear();
+                            descController.clear();
+                          }
+                        },
+                        child: Text(
+                          itemKey == null ? "Add Note" : "Update Note",
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 18.0,
+                          ),
                         ),
                       ),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          if (itemKey == null) {
-                            _createItem({
-                              "title": titleController.text,
-                              "description": descController.text,
-                            });
-                          }
-
-                          if (itemKey != null) {
-                            _updateItem(itemKey, {
-                              'title': titleController.text.trim(),
-                              "description": descController.text.trim(),
-                            });
-                          }
-
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          splashFactory: InkRipple.splashFactory,
+                          overlayColor: Colors.red,
+                          side: const BorderSide(
+                            color: Colors.red,
+                            width: 1.5,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                        onPressed: () async {
                           Navigator.of(context).pop();
 
                           await Future.delayed(const Duration(seconds: 1));
-
                           //clear the text fields
                           titleController.clear();
                           descController.clear();
-                        }
-                      },
-                      child: Text(
-                        itemKey == null ? "Add Note" : "Update Note",
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 18.0,
+                        },
+                        child: const Text(
+                          "Cancel",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18.0,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        splashFactory: InkRipple.splashFactory,
-                        overlayColor: Colors.red,
-                        side: const BorderSide(
-                          color: Colors.red,
-                          width: 1.5,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                      ),
-                      onPressed: () async {
-                        Navigator.of(context).pop();
-
-                        await Future.delayed(const Duration(seconds: 1));
-                        //clear the text fields
-                        titleController.clear();
-                        descController.clear();
-                      },
-                      child: const Text(
-                        "Cancel",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18.0,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

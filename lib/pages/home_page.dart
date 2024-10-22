@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
     await _noteDB.delete(itemKey);
     _refreshItems();
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Center(
         child: Text(
           "Note Has Been Deleted!",
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               TextFormField(
@@ -162,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                   return null;
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
@@ -201,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                   return null;
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -213,7 +213,7 @@ class _HomePageState extends State<HomePage> {
                       style: OutlinedButton.styleFrom(
                         splashFactory: InkRipple.splashFactory,
                         overlayColor: Colors.blue,
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: Colors.blue,
                           width: 1.5,
                         ),
@@ -239,7 +239,7 @@ class _HomePageState extends State<HomePage> {
 
                           Navigator.of(context).pop();
 
-                          await Future.delayed(Duration(seconds: 1));
+                          await Future.delayed(const Duration(seconds: 1));
 
                           //clear the text fields
                           titleController.clear();
@@ -248,20 +248,20 @@ class _HomePageState extends State<HomePage> {
                       },
                       child: Text(
                         itemKey == null ? "Add Note" : "Update Note",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18.0,
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     OutlinedButton(
                       style: OutlinedButton.styleFrom(
                         splashFactory: InkRipple.splashFactory,
                         overlayColor: Colors.red,
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: Colors.red,
                           width: 1.5,
                         ),
@@ -272,12 +272,12 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () async {
                         Navigator.of(context).pop();
 
-                        await Future.delayed(Duration(seconds: 1));
+                        await Future.delayed(const Duration(seconds: 1));
                         //clear the text fields
                         titleController.clear();
                         descController.clear();
                       },
-                      child: Text(
+                      child: const Text(
                         "Cancel",
                         style: TextStyle(
                           color: Colors.black,
@@ -301,31 +301,32 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.greenAccent.withOpacity(0.5),
         toolbarHeight: 100,
-        title: Padding(
+        title: const Padding(
           padding: EdgeInsets.only(left: 30.0),
           child: Text("Notes - Hive"),
         ),
       ),
       body: isLoading
           ? Center(
-              child: Lottie.asset('assets/loading.json', height: 80, width: 80),
+              child: Lottie.asset('assets/animation/loading.json',
+                  height: 80, width: 80),
             )
           : _items.isNotEmpty
               ? ListView.builder(
                   itemCount: _items.length,
                   itemBuilder: (_, index) {
                     final currentItem = _items[index];
-                    print('${_items}');
+                    print('$_items');
                     return Card(
-                      color: Colors.blueGrey.withOpacity(0.2),
-                      margin: EdgeInsets.all(10.0),
+                      color: Colors.white54,
+                      margin: const EdgeInsets.all(10.0),
                       // elevation: 3,
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundColor: Colors.deepPurple.withOpacity(0.5),
+                          backgroundColor: Colors.blueGrey.withOpacity(0.7),
                           child: Text(
                             "${index + 1}",
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
                             ),
@@ -375,11 +376,64 @@ class _HomePageState extends State<HomePage> {
                                 child: InkWell(
                                   highlightColor: Colors.transparent,
                                   splashColor: Colors.transparent,
-                                  onTap: () async {
-                                    _deleteItem(currentItem["key"]);
-                                    // _items.removeAt(index);
-                                    // setState(() {});
-                                  },
+                                  onTap: () => showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title: const Text(
+                                        "Warning!",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      content: const Text(
+                                        "Are you sure you want to delete this note?",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 20.0,
+                                        ),
+                                      ),
+                                      actions: [
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                Colors.black.withOpacity(0.5),
+                                          ),
+                                          onPressed: () {
+                                            _deleteItem(currentItem["key"]);
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text(
+                                            "OK",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                Colors.black.withOpacity(0.5),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text(
+                                            "Cancel",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                   child: const Icon(
                                     Icons.delete,
                                     color: Colors.black,
@@ -393,7 +447,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                 )
-              : Center(
+              : const Center(
                   child: Text(
                     "No Notes Found!",
                     style: TextStyle(
@@ -405,7 +459,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blueGrey,
         onPressed: () => _showForm(context, null),
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Colors.white,
         ),

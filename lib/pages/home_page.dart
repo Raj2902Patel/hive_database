@@ -306,7 +306,7 @@ class _HomePageState extends State<HomePage> {
         toolbarHeight: 100,
         title: const Padding(
           padding: EdgeInsets.only(left: 30.0),
-          child: Text("Notes - Hive"),
+          child: Text("Notes"),
         ),
       ),
       body: isLoading
